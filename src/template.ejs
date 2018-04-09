@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'/>
+    <!-- 通过配置文件生成title -->
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="full-screen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=0">
+    <script>
+        !function (n, e) {
+            var doc = e.document;
+            var ua = navigator.userAgent;
+            var matches = ua.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i);
+            var UCversion = ua.match(/U3\/((\d+|\.){5,})/i);
+            var isUCHd = UCversion && parseInt(UCversion[1].split('.').join(''), 10) >= 80;
+            var isIos = navigator.appVersion.match(/(iphone|ipad|ipod)/gi);
+            var dpr = e.devicePixelRatio || 1;
+            if (!isIos && !(matches && matches[1] > 534) && !isUCHd) {
+                // 如果非iOS, 非Android4.3以上, 非UC内核, 就不执行高清, dpr设为1;
+                dpr = 1;
+            }
+            var scale = 1 / dpr;
+
+            var metaEl = doc.querySelector('meta[name="viewport"]');
+            if (!metaEl) {
+                metaEl = doc.createElement('meta');
+                metaEl.setAttribute('name', 'viewport');
+                doc.head.appendChild(metaEl);
+            }
+            metaEl.setAttribute('content', "user-scalable=no,initial-scale=" + scale + ",maximum-scale=" + scale + ",minimum-scale=" + scale);
+
+            var n = n.documentElement.clientWidth;
+            if (n) {
+                //hack 处理高分辨率手机显示黑线的问题
+                var e = parseInt(100 * (n / 750));
+                doc.documentElement.style.fontSize = e + "px";
+            }
+        }(document, window);
+    </script>
+    <!-- 可以在这里引入其他样式文件，业务css会自动生成在下方 -->
+    <!--<link type="text/css" href="https://unpkg.com/antd-mobile/dist/antd-mobile.min.css"/>-->
+</head>
+<body>
+<div id='init'>
+    <div class="load">
+        <div class="loader"></div>
+    </div>
+</div>
+
+<!-- 业务js代码自动生成在下方 -->
+</body>
+</html>
