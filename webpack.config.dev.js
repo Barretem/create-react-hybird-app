@@ -30,7 +30,7 @@ let entryConfig = {},
         new webpack.HotModuleReplacementPlugin()
     ];
 
-pageConfig.list.map(info => {
+pageConfig.map(info => {
     entryConfig[info.name] = ['webpack-hot-middleware/client?reload=true', info.entry];
     plugins.push(
         new HtmlWebpackPlugin({
@@ -87,7 +87,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './output'),
         filename: "[name].js",
-        chunkFilename: "[name].[id].[chunkhash:8].js",
+        chunkFilename: "[id].[chunkhash:8].js",
         publicPath: '/'
     }
 }

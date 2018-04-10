@@ -4,15 +4,13 @@
  * @data 2018/04/06
  */
 
-module.exports = {
-    "list": [
-        {
-            "name": "todoIndex",
-            "entry": "./app/todo/index.js",
-            "title": "todoIndex",
-            "filename": "todoIndex.html",
-            "template": "template.ejs",
-            "chunks": "todoIndex",
-        }
-    ]
-}
+module.exports = [
+    {
+        "name": "todoIndex",
+        "entry": "./app/todo/index.js",
+        "title": "todoIndex",
+        "filename": "todoIndex.html",
+        "template": "template.ejs",
+        "chunks": "todoIndex",
+    }
+]
