@@ -12,7 +12,8 @@ const path = require('path'),
     pageConfig = require('./config/config.page.js'),
     theme = require('./config/config.theme.js'),
     defineConfig = require('./config/config.env.js'),
-    UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+    UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
+    CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const definePluginOptionKey = process.env.NODE_ENV ? process.env.NODE_ENV:'test';
 const defineContent = defineConfig[definePluginOptionKey];
@@ -23,7 +24,7 @@ let entryConfig = {},
         new CleanWebpackPlugin(['./output']),
         // 分开打包多个css
         new ExtractTextWebpackPlugin({
-            filename: '[name].bundle.css',
+            filename: '[name].[chunkhash:8].bundle.css',
             allChunks: true,
         }),
         new webpack.EnvironmentPlugin(defineContent),
@@ -45,7 +46,11 @@ let entryConfig = {},
                 toplevel: true //启用顶级变量和函数名称修改并删除未使用的变量和函数
 
             }
-        })
+        }),
+        new CopyWebpackPlugin([
+            { from: './assets', to: './assets'},
+        ]),
+        new webpack.HashedModuleIdsPlugin()
     ];
 
 pageConfig.map(info => {
@@ -103,8 +108,8 @@ module.exports = {
     plugins: plugins,
     output: {
         path: path.resolve(__dirname, './output'),
-        filename: "[name].js",
-        chunkFilename: "[id].[chunkhash:8].js",
+        filename: "[name].[chunkhash:8].js",
+        chunkFilename: "[name].[id].[chunkhash:8].js",
         publicPath: '/'
     }
 }

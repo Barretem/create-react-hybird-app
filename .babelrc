@@ -1,4 +1,5 @@
 {
   "presets": [["es2015", { "modules": false }], "stage-2", "react"],
-  "plugins": ["transform-runtime","transform-decorators-legacy",["import", { "libraryName": "antd-mobile", "style": true }]]
+  "plugins": ["transform-runtime","transform-decorators-legacy",["import", { "libraryName": "antd-mobile", "style": true }]],
+  "minified": true
 }
