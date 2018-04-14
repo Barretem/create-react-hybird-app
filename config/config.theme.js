@@ -1,5 +1,7 @@
 /**
  * ant-mobile 主题(主题自定义)
+ * @author barret
+ * @data 2018/04/14
  * @type {{brand_primary: string, color_link: string, border_color_base: string}}
  */
 

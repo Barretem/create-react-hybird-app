@@ -1,3 +1,9 @@
+/**
+ * postcss配置
+ * @author barret
+ * @data 2018/04/14
+ * @type {{plugins: [*]}}
+ */
 module.exports = {
     plugins: [
         require('postcss-pxtorem')({

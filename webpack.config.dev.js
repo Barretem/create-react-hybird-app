@@ -9,11 +9,13 @@ const path = require('path'),
     webpack = require('webpack'),
     ExtractTextWebpackPlugin = require('extract-text-webpack-plugin'),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
+    postcssConfig = require('./config/postcss.config.js'),
     pageConfig = require('./config/config.page.js'),
     theme = require('./config/config.theme.js'),
-    defineConfig = require('./config/config.env.js');
+    defineConfig = require('./config/config.env.js'),
+    CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const definePluginOptionKey = process.env.NODE_ENV ? process.env.NODE_ENV:'test';
+const definePluginOptionKey = process.env.NODE_ENV ? process.env.NODE_ENV:'dev';
 const defineContent = defineConfig[definePluginOptionKey];
 defineContent['NODE_ENV']= definePluginOptionKey;
 
@@ -25,6 +27,9 @@ let entryConfig = {},
             filename: '[name].bundle.css',
             allChunks: true,
         }),
+        new CopyWebpackPlugin([
+            { from: './assets', to: './assets'},
+        ]),
         new webpack.EnvironmentPlugin(defineContent),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
@@ -36,7 +41,8 @@ pageConfig.map(info => {
         new HtmlWebpackPlugin({
             template: info.template,
             title: info.title,
-            filename: info.filename
+            filename: info.filename,
+            cache: true,
         })
     )
 });
@@ -47,13 +53,33 @@ module.exports = {
     entry: entryConfig,
     devtool: 'inline-source-map',
     mode: 'development',
+    resolve: {
+        modules: ['node_modules', path.join(__dirname, './node_modules')],
+        extensions: ['.web.js', '.js', '.json'], // webpack2 不再需要一个空的字符串
+        alias: {
+            'react': 'react/umd/react.development.js',
+            'react-dom': 'react-dom/umd/react-dom.development.js'
+        }
+    },
     module: {
         rules: [
             {
                 test: /\.less$/,
                 use: ExtractTextWebpackPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader', 'postcss-loader', {loader: 'less-loader', options: {modifyVars: theme}}]
+                    use: [
+                        'css-loader',
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: postcssConfig
+                            }
+                        },
+                        {
+                            loader: 'less-loader',
+                            options: {modifyVars: theme}
+                        }
+                    ]
                 })
             },
             {
@@ -75,6 +101,7 @@ module.exports = {
                 use: [{
                     loader: 'babel-loader?cacheDirectory'
                 }],
+                include: path.resolve(__dirname, './src'),
                 exclude: /node_modules/
             },
             {

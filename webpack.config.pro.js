@@ -10,6 +10,7 @@ const path = require('path'),
     ExtractTextWebpackPlugin = require('extract-text-webpack-plugin'),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
     pageConfig = require('./config/config.page.js'),
+    postcssConfig = require('./config/postcss.config.js'),
     theme = require('./config/config.theme.js'),
     defineConfig = require('./config/config.env.js'),
     UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
@@ -36,7 +37,7 @@ let entryConfig = {},
                 ie8: false,
                 ecma: 5, //支持的ECMAScript的版本
                 compress: {
-                    collapse_vars: true, //折叠单次使用非常量变量，副作用允许。
+                    collapse_vars: true, //内嵌定义了但是只用到一次的变量
                     drop_console: false, //true为放弃对console.*的调用--这里为了快速定位生产问题，不去除console.*
                 },
                 output: {
@@ -59,7 +60,24 @@ pageConfig.map(info => {
         new HtmlWebpackPlugin({
             template: info.template,
             title: info.title,
-            filename: info.filename
+            filename: info.filename,
+            chunks: [info.chunks],
+            cache: true,
+            minify: {
+                removeAttributeQuotes: true,
+                collapseWhitespace: true,
+                html5: true,
+                minifyCSS: true,
+                minifyJS: true,
+                minifyURLs: true,
+                removeComments: true,
+                removeEmptyAttributes: true,
+                removeEmptyElements: true,
+                removeOptionalTags: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                useShortDoctype: true,
+            }
         })
     )
 });
@@ -69,18 +87,41 @@ module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: entryConfig,
     mode: 'production',
+    // ant需要
+    resolve: {
+        modules: ['node_modules', path.join(__dirname, './node_modules')],
+        extensions: ['.web.js', '.js', '.json'] // webpack2 不再需要一个空的字符串
+    },
     module: {
         rules: [
             {
                 test: /\.less$/,
                 use: ExtractTextWebpackPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader', 'postcss-loader', {loader: 'less-loader', options: {modifyVars: theme}}]
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {minimize: true}
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: postcssConfig
+                            }
+                        },
+                        {
+                            loader: 'less-loader',
+                            options: {modifyVars: theme}
+                        }
+                    ]
                 })
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
             },
             {
                 test: /\.js?$/,
@@ -97,6 +138,7 @@ module.exports = {
                 use: [{
                     loader: 'babel-loader?cacheDirectory'
                 }],
+                include: path.resolve(__dirname, './src'),
                 exclude: /node_modules/
             },
             {
@@ -106,6 +148,11 @@ module.exports = {
         ]
     },
     plugins: plugins,
+    // 不需要打包的模块
+    externals: {
+        "react": 'React',
+        "react-dom": "ReactDOM",
+    },
     output: {
         path: path.resolve(__dirname, './output'),
         filename: "[name].[chunkhash:8].js",

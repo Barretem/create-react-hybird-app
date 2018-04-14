@@ -1,3 +1,9 @@
+/**
+ * node 服务器配置
+ * @author barret
+ * @data 2018/04/14
+ * @type {*}
+ */
 const express = require('express'),
       webpack = require('webpack'),
       webpackDevMiddleware = require('webpack-dev-middleware'),

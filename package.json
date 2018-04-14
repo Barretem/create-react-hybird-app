@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "export NODE_ENV=test && node ./config/config.server.js",
+    "start": "export NODE_ENV=dev && node ./config/config.server.js",
     "pro-start": "export NODE_ENV=production && node ./config/config.server.js",
     "build": "export NODE_ENV=test &&  webpack --config ./webpack.config.pro.js",
     "pro-build": "export NODE_ENV=production &&  webpack --config ./webpack.config.pro.js"

@@ -6,9 +6,13 @@
  */
 
 module.exports = {
+    "dev": {
+        "LINK_URL": "开发环境",
+        "DEBUG": true
+    },
     "test": {
         "LINK_URL": "测试",
-        "DEBUG": true
+        "DEBUG": false
     },
     "production": {
         "LINK_URL": "生产",

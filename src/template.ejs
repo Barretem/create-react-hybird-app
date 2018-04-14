@@ -52,5 +52,8 @@
 </div>
 
 <!-- 业务js代码自动生成在下方 -->
+<% if(!process.env.NODE_ENV !== 'dev') {%>
+<script type="text/javascript" src="./assets/react.16.3.1.min.js"></script>
+<%}%>
 </body>
 </html>
