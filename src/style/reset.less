@@ -1,0 +1,104 @@
+/**
+ * 重置样式
+ */
+html, body, div, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input, textarea, th, td, select, button {
+  margin: 0;
+  padding: 0;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+html{
+  -webkit-overflow-scrolling: touch;//允许独立的滚动区域和触摸回弹 解决ios滑动不流畅
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+
+  width: 100vw;
+
+  //background: #f5f5f9;
+
+  /*禁止选中文字*/
+  -webkit-user-select: none;
+  /* iPhone 和 Android 的浏览器纵向 (Portrate mode) 和橫向 (Landscape mode) 模式皆有自动调整字体大小的功能。控制它的就是 CSS 中的 -webkit-text-size-adjust。关闭字体大小自动调整功能*/
+  -webkit-text-size-adjust: 100%;
+
+  font-size:32px;
+  color:#333;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight:normal;
+}
+
+ul,ol {
+  list-style: none;
+}
+
+img {
+
+  border: none;
+  vertical-align: middle;
+
+}
+
+//禁止选中 解决ios放大镜
+*:not(input):not(textarea) {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select:none;
+}
+
+select {
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+
+  /*很关键：将默认的select选择框样式清除*/
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+}
+
+a {
+  text-decoration: none;
+  color: #232323;
+}
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+input, textarea {
+  outline: none;
+  border: none;
+}
+
+a,input,button{
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+/*清除掉ios自带圆角*/
+input,button{
+  -webkit-appearance: none;//消除输入框核按钮的默认外观
+  border-radius: 0;
+}
+
+/*取消input/select等选中后的高亮样式*/
+select,
+input {
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}

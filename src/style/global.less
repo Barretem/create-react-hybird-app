@@ -1,0 +1,32 @@
+/**
+ * 全局样式
+ */
+// 文字省略
+.text-dot {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+//超过2行显示省略
+.multi-line-dot {
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical; // 参考 https://github.com/postcss/autoprefixer/issues/776
+  /* autoprefixer: on */
+}
+
+//清除浮动
+.clearfix{
+  &:after{
+    display:block;
+    clear:both;
+    content:"";
+    visibility:hidden;
+    height:0
+  }
+}
+

@@ -10,6 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta content="telephone=no,email=no" name="format-detection">
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=0">
+    <script src="./assets/fastclick.min.js"></script>
     <script>
         !function (n, e) {
             var doc = e.document;
@@ -39,10 +40,18 @@
                 var e = parseInt(100 * (n / 750));
                 doc.documentElement.style.fontSize = e + "px";
             }
+            //引入fastclick处理300ms延迟
+            if ('addEventListener' in document) {
+                document.addEventListener('DOMContentLoaded', function() {
+                    FastClick.attach(document.body);
+                }, false);
+            }
+            if(window.Promise) {
+                document.writeln('<script src="./assets/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
+            }
         }(document, window);
     </script>
     <!-- 可以在这里引入其他样式文件，业务css会自动生成在下方 -->
-    <!--<link type="text/css" href="https://unpkg.com/antd-mobile/dist/antd-mobile.min.css"/>-->
 </head>
 <body>
 <div id='init'>
@@ -52,7 +61,8 @@
 </div>
 
 <!-- 业务js代码自动生成在下方 -->
-<% if(!process.env.NODE_ENV !== 'dev') {%>
+<% if(process.env.NODE_ENV !== 'dev') {%>
+测试以及生产不打包react，react-dom
 <script type="text/javascript" src="./assets/react.16.3.1.min.js"></script>
 <%}%>
 </body>

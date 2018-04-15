@@ -12,7 +12,7 @@ module.exports = {
     },
     "test": {
         "LINK_URL": "测试",
-        "DEBUG": false
+        "DEBUG": true
     },
     "production": {
         "LINK_URL": "生产",
