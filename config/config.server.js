@@ -4,17 +4,19 @@
  * @data 2018/04/14
  * @type {*}
  */
-const express = require('express'),
+const Koa = require('koa'),
+      router = require('koa-router')(),
       webpack = require('webpack'),
-      webpackDevMiddleware = require('webpack-dev-middleware'),
-      webpackHotMiddleware = require("webpack-Hot-middleware"),
-      opn = require('opn');
+      webpackDevMiddleware = require('koa-webpack-dev-middleware'),
+      webpackHotMiddleware = require("koa-webpack-hot-middleware"),
+      opn = require('opn'),
+      rp = require('request-promise'),
+      app = new Koa(),
+      config = require('../webpack.config.dev.js'),
+      compiler = webpack(config),
+      querystring = require('querystring');
 
-const app = express();
-const config = require('../webpack.config.dev.js');
-const compiler = webpack(config);
-
-// Tell express to use the webpack-dev-middleware and use the webpack.config.js
+// Tell koa to use the webpack-dev-middleware and use the webpack.config.js
 // configuration file as a base.
 app.use(webpackHotMiddleware(compiler, {
     log: false,
@@ -27,9 +29,27 @@ app.use(webpackDevMiddleware(compiler, {
     hot: true,
 }));
 
-// Serve the files on port 3000.
+app.use(async (ctx, next) => {
+    console.log(ctx.request.path+':'+ctx.request.method);
+    await next();
+});
+
+/**
+ * 处理本地登录
+ */
+router.get('/getUser', async(ctx,next)=> {
+    // const options = {
+    //     uri: '',
+    // };
+    // var req = await rp(options);
+
+    ctx.response.body = {name: 'zhangsan', age: 18};
+
+});
+app.use(router.routes());
+
 app.listen(3000, function () {
-    console.log('Example app listening on port 3000!\n');
+    console.log('app listening on port 3000!\n');
 });
 
 opn('http:127.0.0.1:3000');

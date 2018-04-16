@@ -9,6 +9,7 @@ import React, {Component} from 'react';
 import { List, Checkbox, InputItem, Flex} from 'antd-mobile';
 
 import {observer, inject} from 'mobx-react';
+import {getUser} from '../../service/index';
 
 const CheckboxItem = Checkbox.CheckboxItem;
 
@@ -27,6 +28,14 @@ class Index extends Component {
     //
     changeTaskStatus = (taskName) => {
         this.props.TaskStore.changeTodoTaskStatus(taskName)
+    }
+
+    async componentDidMount() {
+        //请求用户信息
+        const userInfo = await getUser({
+            userName: '999',
+            pass: 666
+        })
     }
 
     render() {

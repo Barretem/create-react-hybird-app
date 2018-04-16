@@ -17,7 +17,7 @@ const path = require('path'),
     CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const definePluginOptionKey = process.env.NODE_ENV ? process.env.NODE_ENV:'test';
-const defineContent = defineConfig[definePluginOptionKey];
+let defineContent = defineConfig[definePluginOptionKey];
 defineContent['NODE_ENV']= definePluginOptionKey;
 
 let entryConfig = {},
