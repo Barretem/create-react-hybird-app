@@ -21,7 +21,6 @@ defineContent['NODE_ENV']= definePluginOptionKey;
 
 let entryConfig = {},
     plugins = [
-        new CleanWebpackPlugin(['./output']),
         // 分开打包多个css
         new ExtractTextWebpackPlugin({
             filename: '[name].bundle.css',
@@ -32,7 +31,8 @@ let entryConfig = {},
         ]),
         new webpack.EnvironmentPlugin(defineContent),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new CleanWebpackPlugin(['./output']),
     ];
 
 pageConfig.map(info => {
@@ -42,10 +42,18 @@ pageConfig.map(info => {
             template: info.template,
             title: info.title,
             filename: info.filename,
+            chunks: [info.chunks],
             cache: true,
         })
     )
 });
+
+// ant  使用Icon需要
+const svgDirs = [
+    require.resolve('antd-mobile').replace(/warn\.js$/, ''), // 1. 属于 antd-mobile 内置 svg 文件
+    // path.resolve(__dirname, 'src/my-project-svg-foler'),  // 2. 自己私人的 svg 存放目录
+];
+
 
 //配置多入口
 module.exports = {
@@ -85,6 +93,17 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf)(\?.*$|$)/,
+                use: ['url-loader']
+            }, {
+                test: /\.(svg)$/i,
+                use: ['svg-sprite-loader'],
+                include: svgDirs // 把 svgDirs 路径下的所有 svg 文件交给 svg-sprite-loader 插件处理
+            }, {
+                test: /\.(png|jpg)$/,
+                use: ['url-loader']
             },
             {
                 test: /\.js?$/,
