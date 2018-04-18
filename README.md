@@ -21,7 +21,7 @@
 - UI 样式高度可配置，拓展性更强，轻松适应各类产品风格
 - react组件按需加载
 ### 目录介绍：
-![image](./doc/hybird.pdf)
+[详细的目录介绍.pdf](https://github.com/Barretem/antd-hybird-app/blob/master/doc/hybird.pdf)
 ### 下载
 
 ```
