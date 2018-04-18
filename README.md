@@ -42,12 +42,12 @@ npm run start
 ```
 npm run build
 ```
-###### 3、发布到生产环境
+##### 3、发布到生产环境
 
 ```
 npm run pro-build
 ```
-###### 4、本地模拟调试生产环境
+##### 4、本地模拟调试生产环境
 
 ```
 npm run pro-start
