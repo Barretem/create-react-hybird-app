@@ -13,7 +13,9 @@ const path = require('path'),
     pageConfig = require('./config/config.page.js'),
     theme = require('./config/config.theme.js'),
     defineConfig = require('./config/config.env.js'),
-    CopyWebpackPlugin = require('copy-webpack-plugin');
+    CopyWebpackPlugin = require('copy-webpack-plugin'),
+    serverConfig = require('./config/config.server.js'), // 引入dev-server配置文件
+    proxyConfig = require('./config/config.proxy.js'); // 引入接口代理配置文件
 
 const definePluginOptionKey = process.env.NODE_ENV ? process.env.NODE_ENV:'dev';
 const defineContent = defineConfig[definePluginOptionKey];
@@ -68,6 +70,31 @@ module.exports = {
             'react': 'react/umd/react.development.js',
             'react-dom': 'react-dom/umd/react-dom.development.js'
         }
+    },
+    // 配置服务器s
+    devServer: {
+        contentBase: path.resolve(__dirname, './src'), // New
+        port: serverConfig.port,
+        host: serverConfig.host,
+        proxy: proxyConfig,
+        historyApiFallback: true,
+        compress: true,
+        inline: false,
+        hot: false,
+        stats: {
+            assets: true,
+            children: false,
+            chunks: false,
+            hash: false,
+            modules: false,
+            publicPath: false,
+            timings: true,
+            version: false,
+            warnings: true,
+            colors: {
+                green: '\u001b[32m',
+            }
+        },
     },
     module: {
         rules: [
