@@ -8,14 +8,17 @@
 module.exports = {
     "dev": {
         "LINK_URL": "开发环境",
-        "DEBUG": true
+        "DEBUG": true,
+        "NODE_ENV": "dev",
     },
     "test": {
         "LINK_URL": "测试",
-        "DEBUG": true
+        "DEBUG": true,
+        "NODE_ENV": "test",
     },
     "production": {
         "LINK_URL": "生产",
-        "DEBUG": false
+        "DEBUG": false,
+        "NODE_ENV": "production",
     }
 }

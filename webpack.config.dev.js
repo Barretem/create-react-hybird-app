@@ -19,7 +19,6 @@ const path = require('path'),
 
 const definePluginOptionKey = process.env.NODE_ENV ? process.env.NODE_ENV:'dev';
 const defineContent = defineConfig[definePluginOptionKey];
-defineContent['NODE_ENV']= definePluginOptionKey;
 
 let entryConfig = {},
     plugins = [
@@ -161,6 +160,6 @@ module.exports = {
         path: path.resolve(__dirname, './output'),
         filename: "[name].js",
         chunkFilename: "[id].[chunkhash:8].js",
-        publicPath: '/'
+        publicPath: './'
     }
 }
