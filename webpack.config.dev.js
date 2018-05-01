@@ -160,6 +160,6 @@ module.exports = {
         path: path.resolve(__dirname, './output'),
         filename: "[name].js",
         chunkFilename: "[id].[chunkhash:8].js",
-        publicPath: './'
+        publicPath: '/'
     }
 }
