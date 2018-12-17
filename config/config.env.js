@@ -7,17 +7,17 @@
 
 module.exports = {
     "dev": {
-        "LINK_URL": "开发环境",
+        "LINK_URL": "//dev.api.com", // 开发环境api Url
         "DEBUG": true,
         "NODE_ENV": "dev",
     },
     "test": {
-        "LINK_URL": "测试",
+        "LINK_URL": "//test.api.com", // 测试环境api Url
         "DEBUG": true,
         "NODE_ENV": "test",
     },
     "production": {
-        "LINK_URL": "生产",
+        "LINK_URL": "//product.api.com", // 开发环境api Url
         "DEBUG": false,
         "NODE_ENV": "production",
     }
