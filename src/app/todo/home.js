@@ -5,13 +5,11 @@
  */
 import './home.less';
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { List, Checkbox, InputItem, Flex} from 'antd-mobile';
 
 import {observer, inject} from 'mobx-react';
 import {getUser} from '../../service/index';
-
-const CheckboxItem = Checkbox.CheckboxItem;
 
 class Index extends Component {
     state = {
@@ -75,9 +73,9 @@ class Index extends Component {
                 </List>
                 <List renderHeader={() => '事项列表'}>
                     {this.props.TaskStore.todoList && this.props.TaskStore.todoList.map((info, i) => (
-                        <CheckboxItem key={i} checked={info.done} onChange={() => this.changeTaskStatus(info.taskName)}>
+                        <Checkbox.CheckboxItem key={i} checked={info.done} onChange={() => this.changeTaskStatus(info.taskName)}>
                             <span className={info.done?"task-done": ""}>{info.taskName}</span>
-                        </CheckboxItem>
+                        </Checkbox.CheckboxItem>
                     ))}
                 </List>
             </div>

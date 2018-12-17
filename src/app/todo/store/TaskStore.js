@@ -3,7 +3,7 @@
  * @author barret007
  * @data 2018/03/24
  */
-import {action, observable, computed} from 'mobx';
+import { action, observable, computed } from 'mobx';
 
 class TaskStore {
     @observable todoList = [

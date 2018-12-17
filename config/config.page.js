@@ -8,8 +8,8 @@ module.exports = [
     {
         "name": "todoIndex",
         "entry": "./app/todo/index.js",
-        "title": "todoIndex",
-        "filename": "todoIndex.html",
+        "title": "todoList",
+        "filename": "index.html",
         "template": "template.ejs",
         "chunks": "todoIndex",
     }
