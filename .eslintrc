@@ -6,7 +6,7 @@
     "node": true,
     "commonjs": true
   },
-  "extends": "eslint:recommended",
+  "extends": ["airbnb", "eslint:recommended"],
   "parserOptions": {
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
@@ -51,6 +51,12 @@
     "no-array-constructor": 2,
     "no-class-assign": 2,
     "no-cond-assign": 2,
-    "no-mixed-spaces-and-tabs": 0
+    "no-mixed-spaces-and-tabs": 0,
+    "react/destructuring-assignment": 1,
+    "react/no-array-index-key": 1,
+    "import/prefer-default-export": 1,
+    "import/extensions": ["js", "jsx"],
+    "import/no-unresolved": 0,
+    "import/no-webpack-loader-syntax": 0
   }
 }

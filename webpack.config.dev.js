@@ -64,7 +64,7 @@ module.exports = {
     mode: 'development',
     resolve: {
         modules: ['node_modules', path.join(__dirname, './node_modules')],
-        extensions: ['.web.js', '.js', '.json'], // webpack2 不再需要一个空的字符串
+        extensions: ['.web.js', '.js', '.json', '.jsx'], // webpack2 不再需要一个空的字符串
         alias: {
             'react': 'react/umd/react.development.js',
             'react-dom': 'react-dom/umd/react-dom.development.js'
@@ -132,7 +132,7 @@ module.exports = {
                 use: ['url-loader']
             },
             {
-                test: /\.js?$/,
+                test: /\.(js|jsx)?$/,
                 enforce: 'pre',
                 use: [{
                     loader: 'eslint-loader',
@@ -142,7 +142,7 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.js?$/,
+                test: /\.(js|jsx)?$/,
                 use: [{
                     loader: 'babel-loader?cacheDirectory'
                 }],

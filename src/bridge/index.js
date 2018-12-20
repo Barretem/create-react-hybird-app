@@ -12,7 +12,7 @@
 const getTrueSys = () => {
     const ua = navigator.userAgent;
     const lfHybrid = ua.match(/BR/); //webview内核写入
-    const android = ua.match(/(Android);?[\s\/]+([\d.]+)?/);
+    const android = ua.match(/(Android);?[\s/]+([\d.]+)?/);
     if (lfHybrid) {
         if (android) {
             return 'Android'

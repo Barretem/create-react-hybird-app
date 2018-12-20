@@ -7,7 +7,7 @@
 module.exports = [
     {
         "name": "todoIndex",
-        "entry": "./app/todo/index.js",
+        "entry": "./app/todo/index.jsx",
         "title": "todoList",
         "filename": "index.html",
         "template": "template.ejs",

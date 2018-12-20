@@ -1,4 +1,10 @@
-import React, { Component } from 'react'
+/**
+ * 代码分割模型
+ * @author barret
+ * @date 2018/12/20
+ */
+import React from 'react'
+import PropTypes from 'prop-types';
 
 /*
  *  代码分割模型，调用该模型的方式如下。
@@ -23,7 +29,8 @@ export default class Bundle extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.load !== this.props.load) {
+        const { load } = this.props;
+        if (nextProps.load !== load) {
             this.load(nextProps)
         }
     }
@@ -41,8 +48,15 @@ export default class Bundle extends React.Component {
     }
 
     render() {
-        if (!this.state.mod)
-            return false
-        return this.props.children(this.state.mod)
+        const { mod} = this.state;
+        const { children } = this.props;
+
+        if (!mod) return false;
+        return children(mod)
     }
+}
+
+Bundle.propTypes = {
+    load: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
 }
